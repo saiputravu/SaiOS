@@ -14,11 +14,10 @@ make
 ### Emulation
 
 There are multiple options for emulators including, but not limited to:
-
-    * QEMU (Which I picked)
-    * Bochs
-    * Oracle VMBox
-    * VMWare
+* QEMU (Which I picked)
+* Bochs
+* Oracle VMBox
+* VMWare
 
 ```bash
 qemu-system-x86_64 -fda ./build/img/disk.img
