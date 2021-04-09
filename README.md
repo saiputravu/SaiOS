@@ -12,12 +12,21 @@ make
 ```
 
 ### Emulation
-For debugging, I tried using gdb-multiarch, but radare2 dealt with it the best
+
+There are multiple options for emulators including, but not limited to:
+
+    * QEMU (Which I picked)
+    * Bochs
+    * Oracle VMBox
+    * VMWare
+
 ```bash
 qemu-system-x86_64 -fda ./build/img/disk.img
 ```
 
 ### Debugging 
+
+For debugging, I tried using gdb-multiarch, but radare2 dealt with it the best
 
 ```bash
 # 0x9000 is kmain (Look at ./build/img/os.map for updated values)
