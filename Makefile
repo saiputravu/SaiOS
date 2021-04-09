@@ -25,6 +25,7 @@ kernel :
 	make -C $(SRC_DIR)/kernel 
 
 $(OS) : $(BOOTLOADER_OBJS) $(KERNEL_OBJS)
+	mkdir -p $(BUILD_DIR)/img
 	ld -T $(LINKER_FILE) $(BOOTLOADER_OBJS) $(KERNEL_OBJS) $(LD_OPTIONS) -o $@.elf64
 	objcopy -O binary $@.elf64 $@
 

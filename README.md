@@ -7,7 +7,7 @@ Windows change `pwd` to %cd%
 ### Docker building
 ```bash
 docker build -t linux-build-env .
-docker run -it --rm -v `pwd`:/root/env 
+docker run -it --rm -v `pwd`:/root/env linux-build-env
 make 
 ```
 
