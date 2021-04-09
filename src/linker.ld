@@ -18,7 +18,7 @@ SECTIONS {
         . = ALIGN(512); /* To fill up the sector */
     }
 
-    /* 1M */ 
+    /* I want it to be 1M - need to find a fix around or load filesystem with bootloader or use pre-written bootloader */ 
     . = 0x9000;
 
     .text : {
