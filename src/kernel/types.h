@@ -21,12 +21,14 @@ typedef unsigned int uint;
 typedef long long int_64;
 typedef unsigned long long uint_64;
 
-typedef unsigned char bool;
-#define true (bool)1
-#define false (bool)0
 
 // Pointer types
 
 
 // Custom types 
+
 typedef uint_32 size_t;
+
+typedef unsigned char bool;
+#define true (bool)1
+#define false (bool)0
