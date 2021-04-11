@@ -2,7 +2,7 @@
 
 ## Building instructions 
 
-Windows change `pwd` to %cd%
+Windows change `pwd` to `%cd%`
 
 ### Docker building
 ```bash
