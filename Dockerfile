@@ -5,6 +5,9 @@ RUN apt-get update -y && \
     apt-get install build-essential gdb mtools nasm file -y \
     && apt-get install libc6-dev-i386 libstdc++6:i386 -y
 
+RUN echo Etc/GMT-1 > /etc/timezone
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
 VOLUME /root/env 
 WORKDIR /root/env
 USER root

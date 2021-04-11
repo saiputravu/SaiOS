@@ -67,6 +67,8 @@ section .boot2_text
 section .boot2_data
     ; gdt protected mode
 
+    global gdt_codedesc
+    global gdt_datadesc
     gdt_start:
         gdt_nulldesc:
             dd 0 
@@ -102,8 +104,6 @@ section .boot2_data
         address: dq gdt_start
 
 
-    global gdt_codedesc
-    global gdt_datadesc
     global codeseg 
     global dataseg
     codeseg equ gdt_codedesc - gdt_start 

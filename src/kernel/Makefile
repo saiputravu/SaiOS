@@ -6,7 +6,8 @@ KERNEL_OBJS := $(patsubst %.asm, $(BUILD_DIR)/%.o, $(KERNEL_ASM_SRCS)) \
 	$(patsubst %.c, $(BUILD_DIR)/%.o, $(KERNEL_C_SRCS))
 
 CC = gcc
-CFLAGS = -c -ffreestanding -m64 -mno-red-zone -fno-rtti -O2
+CFLAGS = -c -ffreestanding -m64 -mno-red-zone -O2 -std=c11
+# CFLAGS += -fno-rtti # This is for C++
 
 all : setup $(KERNEL_OBJS)
 

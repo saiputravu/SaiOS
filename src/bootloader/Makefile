@@ -2,6 +2,8 @@ BUILD_DIR=../../build/bootloader
 BOOTLOADER_SRCS := $(wildcard *.asm)
 BOOTLOADER_OBJS := $(patsubst %.asm, $(BUILD_DIR)/%.o, $(BOOTLOADER_SRCS))
 
+
+# Makefile errors on future creation of boot.o
 all : setup $(BOOTLOADER_OBJS) 
 
 $(BUILD_DIR)/%.o : %.asm
@@ -10,7 +12,7 @@ $(BUILD_DIR)/%.o : %.asm
 .PHONY: setup
 setup : 
 	mkdir -p $(BUILD_DIR)
-
+	
 .PHONY: clean
 clean : 
 	rm -f $(BUILD_DIR)/*
