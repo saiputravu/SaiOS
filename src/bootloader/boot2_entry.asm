@@ -100,8 +100,8 @@ section .boot2_data
     gdt_end:
 
     gdt_descriptor:
-        size: dw (gdt_start - gdt_end - 1)
-        address: dq gdt_start
+        gdt_size: dw (gdt_start - gdt_end - 1)
+        gdt_address: dq gdt_start
 
 
     global codeseg 

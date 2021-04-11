@@ -22,14 +22,14 @@ section .boot
         mov es, ax
         xor bx, bx
 
-        mov al, 32 ; read n sectors 512 * 32 = 0x4000 so os.o cannot be larger 
+        mov al, 0x40 ; read n sectors 512 * 64 = 0x8000 so os.o cannot be larger (or it cannot access addresses larger than that) 
         mov cl, 2 ; sector 2 (kernel loaded here)
-        mov ch, 0 ; track 0 
+        mov ch, 0 ; cylinder/track 0 
         mov dh, 0 ; head 0 
         mov dl, 0 ; drive 0 (drive A:)
 
         mov ah, 0x02
-        int 0x13    
+        int 0x13
 
         ; Jump to Boot2
         jmp BOOT2_MEMORY_SEGMENT:0x00

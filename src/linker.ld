@@ -23,23 +23,28 @@ SECTIONS {
 
     .text : {
         *(.text);
-        . = ALIGN(0x200);
+        . = ALIGN(0x1000);
     }
     
+    .idt BLOCK(0x1000) : ALIGN(0x1000) {
+        _idt = .; /* Symbol from .o file */
+        . = . + (0x1000);
+    }
+
     .data : {
         *(.data);
-        . = ALIGN(0x200);
+        . = ALIGN(0x1000);
     }
 
     .rodata : {
         *(.rodata);
-        . = ALIGN(0x200);
+        . = ALIGN(0x1000);
     }
 
     .bss : {
         *(COMMON);
         *(.bss);
-        . = ALIGN(0x200);
+        . = ALIGN(0x1000);
     }
 
     /* Symbols for debugging in elf file with readelf -s */
@@ -47,7 +52,11 @@ SECTIONS {
     _boot2_size = SIZEOF(.boot2); 
 
     _text_size = SIZEOF(.text);
+    _idt_size = SIZEOF(.idt);
     _data_size = SIZEOF(.data);
     _rodata_size = SIZEOF(.rodata);
     _bss_size = SIZEOF(.bss);
+
+    _total_size = _boot_size + _boot2_size + 
+        _text_size + _idt_size + _data_size + _rodata_size + _bss_size;
 }
