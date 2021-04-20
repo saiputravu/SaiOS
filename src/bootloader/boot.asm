@@ -5,6 +5,17 @@ section .boot
     start:
         cli
         cld
+        jmp 0x0000:.clear_segment_registers ; Clear cs register
+
+    .clear_segment_registers:
+        xor ax, ax 
+        mov ds, ax 
+        mov es, ax 
+        mov fs, ax 
+        mov gs, ax
+
+    .start_clean:
+        mov byte [BOOT_DRIVE_NUMBER], dl
 
         call clear_screen_real_mode
         mov byte [row], 0
@@ -14,27 +25,28 @@ section .boot
         mov si, msg
         call print_string
 
-        ; Read sectors from disk  - floppy disk
+        ; Read sectors from disk  - Logical Block Addressing (treated as a hard disk drive)
+        mov dl, byte [BOOT_DRIVE_NUMBER]
+        mov si, dap
 
-        ; ES:BX becomes 0x7e0:00 | Address 0x7e0 * 16 + 0
-        ; Anything below 0x500 is reserved 
-        mov ax, BOOT2_MEMORY_SEGMENT
-        mov es, ax
-        xor bx, bx
-
-        mov al, 0x40 ; read n sectors 512 * 64 = 0x8000 so os.o cannot be larger (or it cannot access addresses larger than that) 
-        mov cl, 2 ; sector 2 (kernel loaded here)
-        mov ch, 0 ; cylinder/track 0 
-        mov dh, 0 ; head 0 
-        mov dl, 0 ; drive 0 (drive A:)
-
-        mov ah, 0x02
+        mov ah, 0x42 
         int 0x13
+
+        ; If there is a reading issue
+        mov al, 'B'
+        jc error
 
         ; Jump to Boot2
         jmp BOOT2_MEMORY_SEGMENT:0x00
 
         hlt
+    
+    error:
+        mov bl, 0x5f
+        mov cx, 1
+        call print_char 
+        hlt
+
 
     print_char:
         ; al: ASCII Character 
@@ -122,6 +134,19 @@ section .boot
     BOOT2_MEMORY_SEGMENT equ 0x7c0 + 0x20
 
     msg: db "Sai's Bootloader!", 0x0a, 0
+
+    dap: ; Data Address Packet
+        db 0x10 ; size of DAP
+        db 0x00 ; Unused
+        
+        dw 0x80 ; Number of sectors to read
+        
+        dw 0x0000 ; Offset  
+        dw 0x07e0 ; Segment 
+
+        dq 0x1 ; Start from 2nd sector
+    
+    BOOT_DRIVE_NUMBER: db 0
 
     ; Padding and signature
     times 510-($-$$) db 0

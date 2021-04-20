@@ -76,10 +76,10 @@ void finished_servicing_interrupt() {
 void isr1_handler() {
 
     extern uchar colour;
-    char keyboard_char = inb(0x60); 
+    uint_8 keyboard_char = inb(0x60); 
 
-    if (keyboard_char > 0 && keyboard_char < 0x3A)
-        vga_putc(keyboard_table[keyboard_char], colour);
+    if (pressed_key(keyboard_char) != 0)
+        vga_putc(pressed_key(keyboard_char), colour);
 
     finished_servicing_interrupt();
 }

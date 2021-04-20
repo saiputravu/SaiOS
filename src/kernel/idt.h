@@ -27,8 +27,8 @@ void add_idt_entry(uint_64 indx, uint_64 *offset, uint_16 selector, uint_8 type_
 /* ================ Interrupt Service Routines ================ */
 
 // Keyboard handler
-char keyboard_char = 0;
 extern uint_64 isr1;
+extern const char keyboard_table[];
 void isr1_handler();
 
 /* ================ STRUCTURES ================ */

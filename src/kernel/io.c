@@ -49,5 +49,4 @@ void remap_pic(uint offset1, uint offset2) {
     // Restore saved masks
     outb(MASTER_PIC_DATA, a1);
     outb(SLAVE_PIC_DATA, a2);
-
 }

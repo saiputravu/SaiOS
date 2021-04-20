@@ -7,7 +7,8 @@ section .boot2_entry
     global boot2_start
     boot2_start:
         ; stack pointer
-        mov bp, BOOT2_MEMORY_SPACE
+        mov bp, 0x7c00  ; Memory to overwrite for stack
+                        ; Stack grows down so it will never touch 0x7c01
         mov sp, bp
 
         call print_kernel_message
@@ -108,7 +109,6 @@ section .boot2_data
     global dataseg
     codeseg equ gdt_codedesc - gdt_start 
     dataseg equ gdt_datadesc - gdt_start
-    BOOT2_MEMORY_SPACE equ 0x7c00 + 0x200
 
 ;.rodata
 section .boot2_rodata
